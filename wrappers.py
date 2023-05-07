@@ -76,7 +76,7 @@ class FrameStack(gym.Wrapper):
         --------
         baselines.common.atari_wrappers.LazyFrames
         """
-        gym.Wrapper.__init__(self, env)
+        super().__init__(env)
         self.k = k
         self.frames = deque([], maxlen=k)
         shp = env.observation_space.shape
@@ -101,7 +101,7 @@ class FrameStack(gym.Wrapper):
 class WarpFrame(gym.ObservationWrapper):
     def __init__(self, env):
         """Warp frames to 84x84 as done in the Nature paper and later work."""
-        gym.ObservationWrapper.__init__(self, env)
+        super().__init__(env)
         self.width = 84
         self.height = 84
         self.observation_space = gym.spaces.Box(low=0, high=255,
@@ -116,7 +116,7 @@ class WarpFrame(gym.ObservationWrapper):
 class FireResetEnv(gym.Wrapper):
     def __init__(self, env=None):
         """For environments where the user need to press FIRE for the game to start."""
-        super(FireResetEnv, self).__init__(env)
+        super().__init__(env)
         assert env.unwrapped.get_action_meanings()[1] == 'FIRE'
         assert len(env.unwrapped.get_action_meanings()) >= 3
 
@@ -139,7 +139,7 @@ class EpisodicLifeEnv(gym.Wrapper):
         """Make end-of-life == end-of-episode, but only reset on true game over.
         Done by DeepMind for the DQN and co. since it helps value estimation.
         """
-        super(EpisodicLifeEnv, self).__init__(env)
+        super().__init__(env)
         self.lives = 0
         self.was_real_done = True
         self.was_real_reset = False
@@ -177,7 +177,7 @@ class EpisodicLifeEnv(gym.Wrapper):
 class MaxAndSkipEnv(gym.Wrapper):
     def __init__(self, env=None, skip=4):
         """Return only every `skip`-th frame"""
-        super(MaxAndSkipEnv, self).__init__(env)
+        super().__init__(env)
         # most recent raw observations (for max pooling across time steps)
         self._obs_buffer = deque(maxlen=2)
         self._skip = skip
@@ -208,7 +208,7 @@ class NoopResetEnv(gym.Wrapper):
         """Sample initial states by taking random number of no-ops on reset.
         No-op is assumed to be action 0.
         """
-        super(NoopResetEnv, self).__init__(env)
+        super().__init__(env)
         self.noop_max = noop_max
         self.override_num_noops = None
         assert env.unwrapped.get_action_meanings()[0] == 'NOOP'
