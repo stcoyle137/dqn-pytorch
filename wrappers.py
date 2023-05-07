@@ -156,7 +156,7 @@ class EpisodicLifeEnv(gym.Wrapper):
             # the environment advertises done.
             done = True
         self.lives = lives
-        return obs, reward, done, info
+        return obs, reward, done, False, info
 
     def reset(self):
         """Reset only when lives are exhausted.
@@ -194,7 +194,7 @@ class MaxAndSkipEnv(gym.Wrapper):
 
         max_frame = np.max(np.stack(self._obs_buffer), axis=0)
 
-        return max_frame, total_reward, done, info
+        return max_frame, total_reward, done, False, info
 
     def reset(self):
         """Clear past frame buffer and init. to first obs. from inner env."""
