@@ -168,7 +168,7 @@ class EpisodicLifeEnv(gym.Wrapper):
             self.was_real_reset = True
         else:
             # no-op step to advance from terminal/lost life state
-            obs, _, _, _ = self.env.step(0)
+            obs, _, _, truncated, _ = self.env.step(0)
             self.was_real_reset = False
         self.lives = self.env.unwrapped.ale.lives()
         return obs
