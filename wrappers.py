@@ -4,7 +4,7 @@ https://github.com/openai/baselines/blob/master/baselines/common/atari_wrappers.
 """
 from collections import deque
 import numpy as np
-import gym
+import gymnasium as gym
 import copy
 import cv2
 cv2.ocl.setUseOpenCL(False)
